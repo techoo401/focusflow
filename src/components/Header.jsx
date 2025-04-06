@@ -23,12 +23,6 @@ function Header() {
 
     const greeting = getGreeting();
 
-    const day = currentDate.toLocaleDateString("en-US", { weekday: "short" });
-    const onlyDate = currentDate.toLocaleDateString("en-US", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-    });
     const time = currentDate.toLocaleTimeString("en-US", {
         hour: "2-digit",
         minute: "2-digit",
@@ -48,7 +42,7 @@ function Header() {
     }, [time]);
 
     return (
-        <header className="flex items-start justify-between px-5 mt-5">
+        <header className="flex items-center justify-between px-5 mt-5">
             <div className="flex flex-col">
                 <h1 className="text-2xl font-bold text-blue-400">{greeting}</h1>
                 <h1 className="text-5xl font-bold text-blue-400">Alex</h1>
@@ -56,14 +50,10 @@ function Header() {
             <div>
                 <span
                     ref={timeRef}
-                    className="text-5xl font-semibold text-blue-400 font-bold"
+                    className="text-3xl mr-10 font-semibold text-blue-400 font-bold"
                 >
                     {time}
                 </span>
-            </div>
-            <div className="flex flex-col text-right">
-                <span className="text-lg font-medium text-gray-500">{day}</span>
-                <span className="text-lg font-medium">{onlyDate}</span>
             </div>
         </header>
     );
