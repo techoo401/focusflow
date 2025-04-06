@@ -3,15 +3,7 @@ import gsap from "gsap";
 
 function Header() {
     const [currentDate, setCurrentDate] = useState(new Date());
-    const timeRef = useRef(null);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentDate(new Date());
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, []);
+    const [prevTime, setPrevTime] = useState("");
 
     const hour = currentDate.getHours();
 
@@ -30,15 +22,37 @@ function Header() {
         hour12: true,
     });
 
-    // Animate time on update
+    const charRefs = useRef([]);
+
+    // Set interval for updating time
     useEffect(() => {
-        if (timeRef.current) {
-            gsap.fromTo(
-                timeRef.current,
-                { opacity: 0, scale: 0.9 },
-                { opacity: 1, scale: 1, duration: 0.3, ease: "power1.out" }
-            );
-        }
+        const interval = setInterval(() => {
+            setCurrentDate(new Date());
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
+    // Animate only changed characters
+    useEffect(() => {
+        const timeChars = time.split("");
+        const prevChars = prevTime.split("");
+
+        timeChars.forEach((char, index) => {
+            if (char !== prevChars[index] && charRefs.current[index]) {
+                gsap.fromTo(
+                    charRefs.current[index],
+                    { y: 20, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.3,
+                        ease: "power1.out",
+                    }
+                );
+            }
+        });
+
+        setPrevTime(time);
     }, [time]);
 
     return (
@@ -47,13 +61,16 @@ function Header() {
                 <h1 className="text-2xl font-bold text-blue-400">{greeting}</h1>
                 <h1 className="text-5xl font-bold text-blue-400">Alex</h1>
             </div>
-            <div>
-                <span
-                    ref={timeRef}
-                    className="text-3xl mr-10 font-semibold text-blue-400 font-bold"
-                >
-                    {time}
-                </span>
+            <div className="text-3xl mr-10 font-semibold text-blue-400 font-bold flex">
+                {time.split("").map((char, index) => (
+                    <span
+                        key={index}
+                        ref={(el) => (charRefs.current[index] = el)}
+                        className="inline-block w-[1ch]"
+                    >
+                        {char}
+                    </span>
+                ))}
             </div>
         </header>
     );
