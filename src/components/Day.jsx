@@ -29,7 +29,7 @@ function Day () {
     }, [weekday])
 
     return (
-        <div className="flex items-center mt-10 justify-evenly">
+        <div className="flex items-center mt-5 justify-evenly">
             {["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map((day, index) => (
                 <div
                     ref={el => dayRefs.current[index] = el}
