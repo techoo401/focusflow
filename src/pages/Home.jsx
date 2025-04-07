@@ -3,6 +3,7 @@ import Header from "../components/Header"
 import Day from "../components/Day"
 import StreakCount from "../components/StreakCount"
 import MainContent from "../components/MainContent"
+import Footer from "../components/Footer"
 
 function Home () {
     return (
@@ -11,6 +12,7 @@ function Home () {
         <StreakCount />
         <Day />
         <MainContent />
+        <Footer />
     </>
     )
 }
