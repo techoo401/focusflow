@@ -4,6 +4,7 @@ import Home from "./pages/Home"
 import Tasks from "./pages/Tasks"
 import Habits from "./pages/Habits"
 import FocusTimer from "./pages/FocusTimer"
+import CreateTask from "./pages/CreateTask"
 
 function App () {
   return (
@@ -12,6 +13,7 @@ function App () {
       <Route path="/tasks" element={<Tasks />} />
       <Route path="/habits" element={<Habits />} />
       <Route path="/focus-timer" element={<FocusTimer />} />
+      <Route path="/create-task" element={<CreateTask />} />
     </Routes>
   )
 }
